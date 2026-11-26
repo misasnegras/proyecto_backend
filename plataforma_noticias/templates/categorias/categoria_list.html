@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Categorías | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="cabecera-vista">
+        <h1>Categorías Editoriales</h1>
+        <a href="{% url 'categoria_create' %}" class="btn btn-rojo">+ Nueva Categoría</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Pública</th>
+                <th>Activa</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in categorias %}
+            <tr>
+                <td>{{ cat.id }}</td>
+                <td>{{ cat.nombre }}</td>
+                <td>{% if cat.es_publica %}Sí{% else %}No{% endif %}</td>
+                <td>{% if cat.activa %}Sí{% else %}No{% endif %}</td>
+                <td class="acciones">
+                    <a href="{% url 'categoria_detail' cat.pk %}" class="btn btn-secundario">Ver</a>
+                    <a href="{% url 'categoria_update' cat.pk %}" class="btn">Editar</a>
+                    <a href="{% url 'categoria_delete' cat.pk %}" class="btn btn-rojo">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No hay categorías registradas.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

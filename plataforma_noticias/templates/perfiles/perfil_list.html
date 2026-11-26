@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Perfiles | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="cabecera-vista">
+        <h1>Perfiles de Usuario</h1>
+        <a href="{% url 'perfil_create' %}" class="btn btn-rojo">+ Nuevo Perfil</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>RUT</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in perfiles %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.usuario.username }}</td>
+                <td>{{ p.get_rol_display }}</td>
+                <td>{{ p.rut }}</td>
+                <td>{% if p.activo %}Sí{% else %}No{% endif %}</td>
+                <td class="acciones">
+                    <a href="{% url 'perfil_detail' p.pk %}" class="btn btn-secundario">Ver</a>
+                    <a href="{% url 'perfil_update' p.pk %}" class="btn">Editar</a>
+                    <a href="{% url 'perfil_delete' p.pk %}" class="btn btn-rojo">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No hay perfiles registrados.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

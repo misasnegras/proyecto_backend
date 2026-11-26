@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Detalle Auditoría | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="cabecera-vista">
+        <h1>Detalle de Registro de Auditoría</h1>
+        <div class="acciones">
+            <a href="{% url 'auditoria_update' auditoria.pk %}" class="btn">Editar</a>
+            <a href="{% url 'auditoria_delete' auditoria.pk %}" class="btn btn-rojo">Eliminar</a>
+            <a href="{% url 'auditoria_list' %}" class="btn btn-secundario">Volver</a>
+        </div>
+    </div>
+    <ul class="detalle-lista">
+        <li><strong>ID Registro:</strong> {{ auditoria.id }}</li>
+        <li><strong>Noticia:</strong> {{ auditoria.noticia.titulo }}</li>
+        <li><strong>Responsable:</strong> {{ auditoria.usuario_responsable }}</li>
+        <li><strong>Estado Anterior:</strong> {{ auditoria.get_estado_anterior_display }}</li>
+        <li><strong>Estado Nuevo:</strong> {{ auditoria.get_estado_nuevo_display }}</li>
+        <li><strong>Fecha de Cambio:</strong> {{ auditoria.fecha_cambio }}</li>
+        <li><strong>Observación:</strong> {{ auditoria.observacion|default:"Sin observaciones" }}</li>
+    </ul>
+</section>
+{% endblock %}

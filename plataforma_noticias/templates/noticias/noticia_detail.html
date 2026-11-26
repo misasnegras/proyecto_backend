@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}{{ noticia.titulo }} | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="cabecera-vista">
+        <h1>Detalle de Noticia</h1>
+        <div class="acciones">
+            <a href="{% url 'noticia_update' noticia.pk %}" class="btn">Editar</a>
+            <a href="{% url 'noticia_delete' noticia.pk %}" class="btn btn-rojo">Eliminar</a>
+            <a href="{% url 'noticia_list' %}" class="btn btn-secundario">Volver</a>
+        </div>
+    </div>
+    <ul class="detalle-lista">
+        <li><strong>ID:</strong> {{ noticia.id }}</li>
+        <li><strong>Titular:</strong> {{ noticia.titulo }}</li>
+        <li><strong>Categoría:</strong> {{ noticia.categoria.nombre }}</li>
+        <li><strong>Autor:</strong> {{ noticia.autor }}</li>
+        <li><strong>Estado Editorial:</strong> {{ noticia.get_estado_display }}</li>
+        <li><strong>Visibilidad:</strong> {{ noticia.get_visibilidad_display }}</li>
+        <li><strong>Vistas:</strong> {{ noticia.vistas }}</li>
+        <li><strong>Fecha Creación:</strong> {{ noticia.fecha_creacion }}</li>
+        <li><strong>Última Edición:</strong> {{ noticia.fecha_actualizacion }}</li>
+    </ul>
+    <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid #dddddd;">
+        <strong>Contenido:</strong>
+        <p style="margin-top: 8px; white-space: pre-line; color: #333333;">{{ noticia.contenido }}</p>
+    </div>
+</section>
+{% endblock %}

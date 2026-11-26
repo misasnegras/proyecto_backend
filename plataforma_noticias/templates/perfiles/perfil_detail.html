@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Detalle Perfil | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="cabecera-vista">
+        <h1>Detalle de Perfil de Usuario</h1>
+        <div class="acciones">
+            <a href="{% url 'perfil_update' perfil.pk %}" class="btn">Editar</a>
+            <a href="{% url 'perfil_delete' perfil.pk %}" class="btn btn-rojo">Eliminar</a>
+            <a href="{% url 'perfil_list' %}" class="btn btn-secundario">Volver</a>
+        </div>
+    </div>
+    <ul class="detalle-lista">
+        <li><strong>ID:</strong> {{ perfil.id }}</li>
+        <li><strong>Usuario Django:</strong> {{ perfil.usuario.username }}</li>
+        <li><strong>Rol Editorial:</strong> {{ perfil.get_rol_display }}</li>
+        <li><strong>RUT:</strong> {{ perfil.rut }}</li>
+        <li><strong>Teléfono:</strong> {{ perfil.telefono|default:"No registrado" }}</li>
+        <li><strong>Activo:</strong> {% if perfil.activo %}Sí{% else %}No{% endif %}</li>
+    </ul>
+</section>
+{% endblock %}

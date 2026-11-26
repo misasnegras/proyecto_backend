@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Detalle Categoría | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="cabecera-vista">
+        <h1>Detalle de Categoría</h1>
+        <div class="acciones">
+            <a href="{% url 'categoria_update' categoria.pk %}" class="btn">Editar</a>
+            <a href="{% url 'categoria_delete' categoria.pk %}" class="btn btn-rojo">Eliminar</a>
+            <a href="{% url 'categoria_list' %}" class="btn btn-secundario">Volver</a>
+        </div>
+    </div>
+    <ul class="detalle-lista">
+        <li><strong>ID:</strong> {{ categoria.id }}</li>
+        <li><strong>Nombre:</strong> {{ categoria.nombre }}</li>
+        <li><strong>Descripción:</strong> {{ categoria.descripcion|default:"Sin descripción" }}</li>
+        <li><strong>Acceso Público:</strong> {% if categoria.es_publica %}Sí{% else %}No{% endif %}</li>
+        <li><strong>Activa:</strong> {% if categoria.activa %}Sí{% else %}No{% endif %}</li>
+    </ul>
+</section>
+{% endblock %}

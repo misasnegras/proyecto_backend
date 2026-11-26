@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Plataforma de Noticias{% endblock %}</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            color: #222222;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .barra {
+            background-color: #18181b;
+            color: #ffffff;
+            border-bottom: 3px solid #b91c1c;
+            padding: 14px 24px;
+        }
+        .barra-contenido {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .marca {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .marca small {
+            font-weight: normal;
+            color: #a1a1aa;
+            font-size: 0.85rem;
+            margin-left: 8px;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .menu a {
+            color: #e4e4e7;
+            text-decoration: none;
+            font-size: 0.93rem;
+        }
+        .menu a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+        .contenedor {
+            max-width: 1080px;
+            width: 100%;
+            margin: 24px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .panel {
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .cabecera-vista {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #222222;
+            margin-bottom: 18px;
+        }
+        .cabecera-vista h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.55rem;
+            color: #111111;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 0.93rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        th {
+            background-color: #f8f8f8;
+            color: #111111;
+            font-weight: bold;
+        }
+        tr:hover td {
+            background-color: #fafafa;
+        }
+        .acciones {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 7px 13px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            text-decoration: none;
+            border: 1px solid #18181b;
+            background-color: #18181b;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .btn:hover { background-color: #27272a; }
+        .btn-rojo {
+            background-color: #b91c1c;
+            border-color: #b91c1c;
+            color: #ffffff;
+        }
+        .btn-rojo:hover { background-color: #991b1b; }
+        .btn-secundario {
+            background-color: #ffffff;
+            color: #222222;
+            border-color: #cccccc;
+        }
+        .btn-secundario:hover { background-color: #f0f0f0; }
+        .grupo-campo {
+            margin-bottom: 15px;
+        }
+        .grupo-campo label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.92rem;
+        }
+        .campo-texto, .campo-area, .campo-select, .campo-numero {
+            width: 100%;
+            padding: 9px 11px;
+            border: 1px solid #cccccc;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        .campo-check {
+            width: 17px;
+            height: 17px;
+        }
+        .detalle-lista {
+            list-style: none;
+        }
+        .detalle-lista li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 0.96rem;
+        }
+        .detalle-lista strong {
+            display: inline-block;
+            width: 190px;
+            color: #111111;
+        }
+        .alerta-borrar {
+            border-left: 4px solid #b91c1c;
+            background-color: #fef2f2;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+        }
+        .pie {
+            background-color: #18181b;
+            color: #a1a1aa;
+            text-align: center;
+            padding: 14px;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="barra">
+        <div class="barra-contenido">
+            <a href="{% url 'index' %}" class="marca">
+                Plataforma de Noticias
+            </a>
+            <nav class="menu">
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'noticia_list' %}">Noticias</a>
+                <a href="{% url 'categoria_list' %}">Categorías</a>
+                <a href="{% url 'perfil_list' %}">Perfiles</a>
+                <a href="{% url 'auditoria_list' %}">Auditoría</a>
+                <a href="/api/">API REST</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="pie">
+        Plataforma de Noticias · Backend con Python y Django
+    </footer>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Formulario Auditoría | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel" style="max-width: 680px; margin: 0 auto;">
+    <div class="cabecera-vista">
+        <h1>{% if object %}Editar Registro de Auditoría{% else %}Nuevo Registro de Auditoría{% endif %}</h1>
+        <a href="{% url 'auditoria_list' %}" class="btn btn-secundario">Cancelar</a>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="grupo-campo">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<small style="color:#b91c1c;">{{ field.errors }}</small>{% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-rojo">Guardar Registro</button>
+    </form>
+</section>
+{% endblock %}

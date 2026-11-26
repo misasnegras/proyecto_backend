@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Noticia | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel" style="max-width: 600px; margin: 0 auto;">
+    <div class="cabecera-vista">
+        <h1>Confirmar Eliminación</h1>
+    </div>
+    <div class="alerta-borrar">
+        ¿Estás seguro de eliminar la noticia <strong>"{{ noticia.titulo }}"</strong>? Esta acción eliminará también su historial asociado.
+    </div>
+    <form method="post" class="acciones">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-rojo">Sí, eliminar</button>
+        <a href="{% url 'noticia_list' %}" class="btn btn-secundario">Cancelar</a>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Formulario Perfil | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel" style="max-width: 680px; margin: 0 auto;">
+    <div class="cabecera-vista">
+        <h1>{% if object %}Editar Perfil{% else %}Nuevo Perfil de Usuario{% endif %}</h1>
+        <a href="{% url 'perfil_list' %}" class="btn btn-secundario">Cancelar</a>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="grupo-campo">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<small style="color:#b91c1c;">{{ field.errors }}</small>{% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-rojo">Guardar Perfil</button>
+    </form>
+</section>
+{% endblock %}

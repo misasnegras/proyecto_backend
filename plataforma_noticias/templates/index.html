@@ -1,311 +1,58 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Noticias - Inicio</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+{% extends 'base.html' %}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f4f4;
-            color: #222222;
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+{% block title %}Plataforma de Noticias - Inicio{% endblock %}
 
-        .barra {
-            background-color: #18181b;
-            color: #ffffff;
-            border-bottom: 3px solid #b91c1c;
-            padding: 14px 24px;
-        }
+{% block content %}
+<section class="panel" style="border-top: 4px solid #b91c1c;">
+    <span style="display:inline-block; font-size:0.78rem; font-weight:bold; text-transform:uppercase; color:#b91c1c; margin-bottom:6px;">
+        Gestión Editorial Digital
+    </span>
+    <h1 style="font-family: Georgia, 'Times New Roman', serif; font-size:1.85rem; color:#111111; margin-bottom:10px;">
+        Sistema Centralizado de Publicaciones Periodísticas
+    </h1>
+    <p style="color:#444444; max-width:800px; margin-bottom:18px;">
+        Plataforma web desarrollada en Django para gestionar noticias, categorías editoriales,
+        perfiles de usuarios y trazabilidad histórica de cambios de estado.
+    </p>
+    <div class="acciones">
+        <a href="{% url 'noticia_list' %}" class="btn btn-rojo">Gestionar Noticias</a>
+        <a href="{% url 'categoria_list' %}" class="btn">Ver Categorías</a>
+        <a href="{% url 'perfil_list' %}" class="btn btn-secundario">Perfiles de Usuario</a>
+        <a href="{% url 'auditoria_list' %}" class="btn btn-secundario">Historial de Auditoría</a>
+    </div>
+</section>
 
-        .barra-contenido {
-            max-width: 1020px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap:18px;">
+    <article class="panel">
+        <h2 style="font-family: Georgia, serif; font-size:1.15rem; margin-bottom:8px;">Noticias</h2>
+        <p style="font-size:0.92rem; color:#444444; margin-bottom:12px;">
+            Creación, edición, control de estados editoriales y visibilidad pública o privada.
+        </p>
+        <a href="{% url 'noticia_list' %}" class="btn btn-secundario">Ir a Noticias</a>
+    </article>
 
-        .marca {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+    <article class="panel">
+        <h2 style="font-family: Georgia, serif; font-size:1.15rem; margin-bottom:8px;">Categorías</h2>
+        <p style="font-size:0.92rem; color:#444444; margin-bottom:12px;">
+            Organización temática de secciones del medio digital y control de acceso.
+        </p>
+        <a href="{% url 'categoria_list' %}" class="btn btn-secundario">Ir a Categorías</a>
+    </article>
 
-        .marca small {
-            font-weight: normal;
-            color: #a1a1aa;
-            font-size: 0.85rem;
-            margin-left: 8px;
-        }
+    <article class="panel">
+        <h2 style="font-family: Georgia, serif; font-size:1.15rem; margin-bottom:8px;">Perfiles de Usuario</h2>
+        <p style="font-size:0.92rem; color:#444444; margin-bottom:12px;">
+            Administración de autores, editores, lectores y administradores del sistema.
+        </p>
+        <a href="{% url 'perfil_list' %}" class="btn btn-secundario">Ir a Perfiles</a>
+    </article>
 
-        .menu a {
-            color: #e4e4e7;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .menu a:hover {
-            text-decoration: underline;
-        }
-
-        .contenedor {
-            max-width: 1020px;
-            width: 100%;
-            margin: 24px auto;
-            padding: 0 20px;
-            flex: 1;
-        }
-
-        .encabezado {
-            background-color: #ffffff;
-            border: 1px solid #dddddd;
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .etiqueta {
-            display: inline-block;
-            font-size: 0.78rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #b91c1c;
-            margin-bottom: 6px;
-        }
-
-        .encabezado h1 {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 1.9rem;
-            color: #111111;
-            margin-bottom: 10px;
-        }
-
-        .encabezado p {
-            color: #444444;
-            font-size: 0.98rem;
-            max-width: 780px;
-        }
-
-        .columnas {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-        }
-
-        .seccion-principal,
-        .bloque {
-            background-color: #ffffff;
-            border: 1px solid #dddddd;
-            padding: 20px;
-        }
-
-        .titulo-seccion {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 1.25rem;
-            color: #111111;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #222222;
-            margin-bottom: 16px;
-        }
-
-        .item {
-            padding: 14px 0;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .item:first-of-type {
-            padding-top: 0;
-        }
-
-        .item h3 {
-            font-size: 1.05rem;
-            color: #18181b;
-            margin-bottom: 4px;
-        }
-
-        .item span {
-            display: inline-block;
-            font-size: 0.8rem;
-            color: #666666;
-            margin-bottom: 6px;
-        }
-
-        .item p {
-            font-size: 0.93rem;
-            color: #333333;
-        }
-
-        .lateral {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .lista-perfiles {
-            list-style: none;
-        }
-
-        .lista-perfiles li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eeeeee;
-            font-size: 0.92rem;
-        }
-
-        .lista-perfiles li:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .lista-perfiles strong {
-            display: block;
-            color: #111111;
-        }
-
-        .lista-perfiles span {
-            color: #555555;
-            font-size: 0.88rem;
-        }
-
-        .datos-proyecto {
-            font-size: 0.9rem;
-            color: #444444;
-        }
-
-        .datos-proyecto p {
-            margin-bottom: 6px;
-        }
-
-        .pie {
-            background-color: #18181b;
-            color: #a1a1aa;
-            text-align: center;
-            padding: 14px;
-            font-size: 0.85rem;
-            margin-top: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .columnas {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header class="barra">
-        <div class="barra-contenido">
-            <a href="{% url 'index' %}" class="marca">
-                Plataforma de Noticias
-            </a>
-            <nav class="menu">
-                <a href="{% url 'index' %}">Inicio</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="contenedor">
-        <section class="encabezado">
-            <span class="etiqueta">Gestión Editorial Digital</span>
-            <h1>Sistema Centralizado de Publicaciones Periodísticas</h1>
-            <p>
-                Aplicación web desarrollada en Django para organizar la producción de noticias de un medio digital,
-                mantener el historial de cambios de cada artículo, controlar estados de publicación y facilitar
-                consultas y reportes de actividad.
-            </p>
-        </section>
-
-        <div class="columnas">
-            <section class="seccion-principal">
-                <h2 class="titulo-seccion">Módulos de la Plataforma</h2>
-
-                <article class="item">
-                    <h3>Gestión y Registro de Noticias</h3>
-                    <span>Área editorial · Acceso interno</span>
-                    <p>
-                        Centraliza los artículos periodísticos en un único sistema para evitar registros dispersos,
-                        mantener datos consistentes y coordinar el trabajo entre redactores y editores.
-                    </p>
-                </article>
-
-                <article class="item">
-                    <h3>Control de Estados e Historial</h3>
-                    <span>Auditoría · Seguimiento de operaciones</span>
-                    <p>
-                        Registra cada cambio de estado de una publicación (borrador, en revisión, publicada o archivada),
-                        validando reglas de negocio y dejando respaldo para auditoría.
-                    </p>
-                </article>
-
-                <article class="item">
-                    <h3>Búsqueda y Archivo de Publicaciones</h3>
-                    <span>Portal público · Consultas por criterios</span>
-                    <p>
-                        Permite filtrar noticias por fecha, categoría, autor o palabras clave, separando el contenido
-                        abierto al público de la información interna de gestión.
-                    </p>
-                </article>
-
-                <article class="item">
-                    <h3>Reportes e Indicadores</h3>
-                    <span>Administración · Actividad del medio</span>
-                    <p>
-                        Entrega datos sobre volumen de publicaciones, actividad reciente, uso de recursos
-                        y comportamiento de lectura dentro de la plataforma.
-                    </p>
-                </article>
-            </section>
-
-            <aside class="lateral">
-                <div class="bloque">
-                    <h2 class="titulo-seccion">Usuarios del Sistema</h2>
-                    <ul class="lista-perfiles">
-                        <li>
-                            <strong>Autores y Periodistas</strong>
-                            <span>Redactan, editan y envían noticias a revisión.</span>
-                        </li>
-                        <li>
-                            <strong>Editores</strong>
-                            <span>Revisan contenido, validan reglas y autorizan publicaciones.</span>
-                        </li>
-                        <li>
-                            <strong>Lectores</strong>
-                            <span>Consultan noticias publicadas y realizan búsquedas.</span>
-                        </li>
-                        <li>
-                            <strong>Administradores</strong>
-                            <span>Supervisan el historial de cambios y los reportes.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bloque datos-proyecto">
-                    <h2 class="titulo-seccion">Información Base</h2>
-                    <p><strong>Proyecto:</strong> Plataforma de Noticias</p>
-                    <p><strong>Aplicación:</strong> plataforma_noticias</p>
-                    <p><strong>Framework:</strong> Python / Django</p>
-                </div>
-            </aside>
-        </div>
-    </main>
-
-    <footer class="pie">
-        Plataforma de Noticias · Backend con Python y Django
-    </footer>
-</body>
-</html>
+    <article class="panel">
+        <h2 style="font-family: Georgia, serif; font-size:1.15rem; margin-bottom:8px;">Auditoría</h2>
+        <p style="font-size:0.92rem; color:#444444; margin-bottom:12px;">
+            Registro histórico de transiciones de estado y observaciones editoriales.
+        </p>
+        <a href="{% url 'auditoria_list' %}" class="btn btn-secundario">Ir a Auditoría</a>
+    </article>
+</div>
+{% endblock %}

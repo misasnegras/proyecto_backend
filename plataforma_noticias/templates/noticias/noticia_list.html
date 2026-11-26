@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Noticias | Plataforma de Noticias{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="cabecera-vista">
+        <h1>Publicaciones Periodísticas</h1>
+        <a href="{% url 'noticia_create' %}" class="btn btn-rojo">+ Nueva Noticia</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Autor</th>
+                <th>Estado</th>
+                <th>Visibilidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in noticias %}
+            <tr>
+                <td>{{ n.id }}</td>
+                <td>{{ n.titulo }}</td>
+                <td>{{ n.categoria.nombre }}</td>
+                <td>{{ n.autor.usuario.username }}</td>
+                <td>{{ n.get_estado_display }}</td>
+                <td>{{ n.get_visibilidad_display }}</td>
+                <td class="acciones">
+                    <a href="{% url 'noticia_detail' n.pk %}" class="btn btn-secundario">Ver</a>
+                    <a href="{% url 'noticia_update' n.pk %}" class="btn">Editar</a>
+                    <a href="{% url 'noticia_delete' n.pk %}" class="btn btn-rojo">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7">No hay noticias registradas.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
