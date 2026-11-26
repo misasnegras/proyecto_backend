@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Página no encontrada | Plataforma de Noticias</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            color: #222222;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .barra {
+            background-color: #18181b;
+            color: #ffffff;
+            border-bottom: 3px solid #b91c1c;
+            padding: 14px 24px;
+        }
+
+        .barra-contenido {
+            max-width: 1020px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .marca {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .marca small {
+            font-weight: normal;
+            color: #a1a1aa;
+            font-size: 0.85rem;
+            margin-left: 8px;
+        }
+
+        .menu a {
+            color: #e4e4e7;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .menu a:hover {
+            text-decoration: underline;
+        }
+
+        .contenedor {
+            max-width: 1020px;
+            width: 100%;
+            margin: 36px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .caja-error {
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-top: 4px solid #b91c1c;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 32px 28px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #b91c1c;
+            margin-bottom: 8px;
+        }
+
+        .caja-error h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.9rem;
+            color: #111111;
+            margin-bottom: 12px;
+        }
+
+        .caja-error p {
+            color: #444444;
+            font-size: 0.98rem;
+            margin-bottom: 16px;
+        }
+
+        .ruta {
+            background-color: #f4f4f4;
+            border: 1px solid #dddddd;
+            padding: 10px 12px;
+            font-family: Consolas, monospace;
+            font-size: 0.9rem;
+            color: #333333;
+            margin-bottom: 22px;
+            word-break: break-all;
+        }
+
+        .boton-volver {
+            display: inline-block;
+            background-color: #18181b;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-bottom: 2px solid #b91c1c;
+        }
+
+        .boton-volver:hover {
+            background-color: #27272a;
+        }
+
+        .pie {
+            background-color: #18181b;
+            color: #a1a1aa;
+            text-align: center;
+            padding: 14px;
+            font-size: 0.85rem;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header class="barra">
+        <div class="barra-contenido">
+            <a href="{% url 'index' %}" class="marca">
+                Plataforma de Noticias
+            </a>
+            <nav class="menu">
+                <a href="{% url 'index' %}">Inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <section class="caja-error">
+            <span class="etiqueta">Error 404</span>
+            <h1>Página no encontrada</h1>
+            <p>
+                La publicación o sección que intentas consultar no existe o la dirección ingresada es incorrecta.
+            </p>
+            <div class="ruta">Ruta solicitada: {{ request_path }}</div>
+            <a href="{% url 'index' %}" class="boton-volver">Volver a la portada</a>
+        </section>
+    </main>
+
+    <footer class="pie">
+        Plataforma de Noticias · Backend con Python y Django
+    </footer>
+</body>
+</html>
